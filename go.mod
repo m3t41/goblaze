@@ -1,4 +1,4 @@
-module github.com/yourname/goblaze
+module github.com/m3t41/goblaze
 
 go 1.22
 
