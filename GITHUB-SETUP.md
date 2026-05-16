@@ -13,7 +13,7 @@ Dieses Dokument beschreibt, wie du das Repository auf GitHub einrichtest und den
 Führe lokal im Projektordner aus:
 
 ```bash
-git remote add origin git@github.com:<dein-account>/<repo-name>.git
+git remote add origin git@github.com:m3t41/goblaze.git
 git push -u origin main
 ```
 
@@ -29,7 +29,10 @@ In GitHub:
    - `Require approvals`
    - `Require status checks to pass before merging`
    - `Restrict who can push to matching branches`
+   - `Require branches to be up to date before merging`
 5. Speichere die Regel.
+
+> Für die Statusprüfung kannst du später den Workflow `go-test` verwenden, der `go test ./...` ausführt.
 
 ## Optional: GitHub CLI
 

@@ -2,14 +2,13 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // Copying or distributing this file requires compliance with AGPLv3.
 
-
 package server
 
 import (
 	"context"
 	"net/http"
 
-	"github.com/yourname/goblaze/pkg/goblaze"
+	"github.com/m3t41/goblaze/pkg/goblaze"
 	"nhooyr.io/websocket"
 )
 

@@ -2,10 +2,9 @@
 // Licensed under the GNU Affero General Public License v3.0.
 // Copying or distributing this file requires compliance with AGPLv3.
 
-
 package goblaze
 
-import "github.com/yourname/goblaze/internal/vdom"
+import "github.com/m3t41/goblaze/internal/vdom"
 
 type Node = vdom.Node
 
