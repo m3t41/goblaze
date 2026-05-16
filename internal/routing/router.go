@@ -1,4 +1,8 @@
-// Copyright 2026 Daniel\n// Licensed under the GNU Affero General Public License v3.0.\n// Copying or distributing this file requires compliance with AGPLv3.\n
+// Copyright 2026 Daniel
+// Licensed under the GNU Affero General Public License v3.0.
+// Copying or distributing this file requires compliance with AGPLv3.
+
+
 package routing
 
 import (
