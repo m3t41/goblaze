@@ -1,0 +1,46 @@
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+Preamble
+
+The GNU Affero General Public License is a free, copyleft license for
+software and other kinds of works, specifically designed to ensure
+cooperation with the community in the case of network server software.
+
+The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works.  By contrast,
+our General Public Licenses are intended to guarantee your freedom to
+distribute copies and modified versions of the works, to ensure that
+the work remains free software for all its users.
+
+When we speak of free software, we are referring to freedom, not
+price.  Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+them if you wish), that you receive source code or can get it if you
+want it, that you can change the software or use pieces of it in new
+free programs, and that you know you can do these things.
+
+Developers that use our license protect your rights with two steps:
+
+1. assert copyright on the software, and
+2. offer you this License giving you legal permission to copy, modify
+   and/or distribute the software.
+
+An "interactive user interface" displays "Appropriate Legal Notices"
+to the extent that it includes a convenient and prominently visible
+feature that (1) displays an appropriate copyright notice, and (2)
+states that there is no warranty for the work (unless warranty is
+explicitly provided), and (3) states that users may redistribute the
+work under these conditions, and (4) gives prominent notice that the
+work is licensed under this License and how to view a copy of this
+License.  If the Program has interactive user interfaces, each must
+display Appropriate Legal Notices; however, if the Program has
+noninteractive interfaces, the Program may display Appropriate Legal
+Notices in the documentation and/or other materials provided along with
+the Program.
+
+... [der vollständige AGPLv3-Text gehört hier hin; siehe https://www.gnu.org/licenses/agpl-3.0.txt]
