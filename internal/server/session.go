@@ -7,7 +7,9 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"strings"
 	"sync"
+	"time"
 
 	"github.com/m3t41/goblaze/pkg/goblaze"
 	"nhooyr.io/websocket"
@@ -27,9 +29,25 @@ func NewSession(conn *websocket.Conn, root goblaze.Component) *Session {
 func (s *Session) Run(ctx context.Context) error {
 	s.renderAndSend()
 
+	// start ticker to push periodic updates (e.g., server-side time)
+	tickCtx, cancel := context.WithCancel(ctx)
+	go func() {
+		ticker := time.NewTicker(time.Second)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-tickCtx.Done():
+				return
+			case <-ticker.C:
+				s.renderAndSend()
+			}
+		}
+	}()
+
 	for {
 		_, data, err := s.conn.Read(ctx)
 		if err != nil {
+			cancel()
 			return err
 		}
 
@@ -44,11 +62,18 @@ func (s *Session) handleEvent(msg string) {
 }
 
 func dispatchEvent(c goblaze.Component, msg string) {
+	name := msg
+	payload := ""
+	if i := strings.Index(msg, "|"); i >= 0 {
+		name = msg[:i]
+		payload = msg[i+1:]
+	}
+
 	if evt, ok := c.(interface {
 		GetEvents() map[string]goblaze.EventHandler
 	}); ok {
-		if h, ok := evt.GetEvents()[msg]; ok {
-			h()
+		if h, ok := evt.GetEvents()[name]; ok {
+			h(payload)
 		}
 	}
 

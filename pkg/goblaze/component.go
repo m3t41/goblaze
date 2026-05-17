@@ -21,7 +21,7 @@ func NewCounter(title string) *Counter {
 	return c
 }
 
-func (c *Counter) Increment() {
+func (c *Counter) Increment(_ string) {
 	c.Count++
 }
 

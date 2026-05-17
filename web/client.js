@@ -76,19 +76,64 @@ function applyPatch(p) {
   }
 }
 
-// WebSocket verbinden
-const ws = new WebSocket(`ws://${location.host}/_goblaze`);
+let sid = null;
+let ws = null;
 
-ws.onmessage = ev => {
-  const patches = JSON.parse(ev.data);
-  if (!Array.isArray(patches)) return;
-  patches.forEach(applyPatch);
-};
+function sendEvent(msg) {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(msg);
+    return;
+  }
+
+  // fallback: POST to event endpoint with sid
+  const url = sid ? `/_goblaze/event?sid=${encodeURIComponent(sid)}` : `/_goblaze/event`;
+  fetch(url, { method: "POST", body: msg }).catch(console.error);
+}
+
+// prefer EventSource (SSE) for server->client updates
+if (typeof EventSource !== "undefined") {
+  const es = new EventSource(`/_goblaze/sse`);
+
+  es.addEventListener("init", e => {
+    try {
+      const data = JSON.parse(e.data);
+      if (data && data.sid) sid = data.sid;
+    } catch (err) {}
+  });
+
+  es.onmessage = ev => {
+    try {
+      const patches = JSON.parse(ev.data);
+      if (!Array.isArray(patches)) return;
+      patches.forEach(applyPatch);
+    } catch (err) {}
+  };
+
+  es.onerror = () => {
+    // SSE failed, fallback to WebSocket
+    if (!ws) {
+      ws = new WebSocket(`ws://${location.host}/_goblaze`);
+      ws.onmessage = ev => {
+        const patches = JSON.parse(ev.data);
+        if (!Array.isArray(patches)) return;
+        patches.forEach(applyPatch);
+      };
+    }
+  };
+} else {
+  // no EventSource, fallback to WebSocket
+  ws = new WebSocket(`ws://${location.host}/_goblaze`);
+  ws.onmessage = ev => {
+    const patches = JSON.parse(ev.data);
+    if (!Array.isArray(patches)) return;
+    patches.forEach(applyPatch);
+  };
+}
 
 // Events an Server senden
 document.addEventListener("click", e => {
   if (e.target.tagName === "BUTTON") {
     const msg = e.target.getAttribute("onclick");
-    if (msg) ws.send(msg);
+    if (msg) sendEvent(msg);
   }
 });

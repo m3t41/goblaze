@@ -8,7 +8,7 @@ import "github.com/m3t41/goblaze/internal/vdom"
 
 type Node = vdom.Node
 
-type EventHandler func()
+type EventHandler func(string)
 
 type Component interface {
 	Render() Node

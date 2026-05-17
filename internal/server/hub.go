@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"net/http"
+	"sync"
 
 	"github.com/m3t41/goblaze/pkg/goblaze"
 	"nhooyr.io/websocket"
@@ -14,6 +15,7 @@ import (
 
 type Hub struct {
 	rootFactory func() goblaze.Component
+	sseSessions sync.Map // map[string]*sseSession
 }
 
 func NewHub(rootFactory func() goblaze.Component) *Hub {

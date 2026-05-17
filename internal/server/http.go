@@ -16,6 +16,10 @@ func StartServer(rootFactory func() goblaze.Component) error {
 	// 1. WebSocket
 	http.HandleFunc("/_goblaze", hub.HandleWS)
 
+	// 1b. Server-Sent Events (receive via POST to /_goblaze/event)
+	http.HandleFunc("/_goblaze/sse", hub.HandleSSE)
+	http.HandleFunc("/_goblaze/event", hub.HandleEventPost)
+
 	// 2. Static files (client.js)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web"))))
 
